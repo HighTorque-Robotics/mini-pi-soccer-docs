@@ -77,7 +77,7 @@ export default defineConfig({
         },
         footer: {
           message: '⚽ 专为机器人足球竞赛打造',
-          copyright: 'Copyright © 2026 Mini Pi+ Team'
+          copyright: 'Copyright © 2026 HighTorque Robotics'
         }
       }
     },
@@ -153,7 +153,7 @@ export default defineConfig({
         },
         footer: {
           message: '⚽ Built for Robot Soccer Competitions',
-          copyright: 'Copyright © 2026 Mini Pi+ Team'
+          copyright: 'Copyright © 2026 HighTorque Robotics'
         }
       }
     }
@@ -168,7 +168,7 @@ export default defineConfig({
   themeConfig: {
     logo: '/company-logo.png',
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/your-repo/mini-pi-soccer' }
+      { icon: 'github', link: 'https://github.com/HighTorque-Robotics/mini-pi-soccer-docs' }
     ]
   }
 })

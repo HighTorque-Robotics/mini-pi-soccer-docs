@@ -30,6 +30,6 @@ Mini Pi+ 是一款专为机器人足球竞赛设计的高性能人形机器人�
 如果你在开发过程中遇到问题，可以：
 
 - 查看 [常见问题](./faq)
-- 在 [GitHub Issues](https://github.com/your-repo/mini-pi-soccer/issues) 提问
+- 在 [GitHub Issues](https://github.com/HighTorque-Robotics/mini-pi-soccer-docs/issues) 提问
 - 加入开发者社区交流
 

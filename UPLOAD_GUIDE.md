@@ -1,315 +1,161 @@
-# 📤 文档上传功能使用说明
+# 📤 文档上传与维护说明
 
-## 🎯 功能简介
+本文档用于说明如何在 `mini-pi-soccer-docs` 中新增、修改并发布文档内容。
 
-这是一个简单易用的文档管理工具，帮助您快速创建和发布网站内容，**无需安装任何软件，无需运行后端服务器**。
+正式站点与仓库：
 
-## ✨ 使用步骤（只需 3 步）
+- 站点：<https://hightorque-robotics.github.io/mini-pi-soccer-docs/>
+- 仓库：<https://github.com/HighTorque-Robotics/mini-pi-soccer-docs>
+- Actions：<https://github.com/HighTorque-Robotics/mini-pi-soccer-docs/actions>
 
-### 第 1 步：访问上传页面
+## 🎯 常见维护流程
 
-打开网站，点击顶部导航栏的 **"📤 上传文档"**
+### 方式 1：直接编辑 Markdown（推荐）
 
-或直接访问：
-- https://mini-pi-docs.vercel.app/upload.html
-- https://zixiangme.github.io/mini-pi-soccer-docs/upload.html
+1. 在 `docs/` 下找到对应目录，例如：
+   - `docs/guide/`
+   - `docs/soccer/`
+   - `docs/tutorials/`
+   - `docs/en/`
+2. 新增或修改 Markdown 文件
+3. 如需出现在导航/侧边栏中，更新 `docs/.vitepress/config.mjs`
+4. 本地预览确认
+5. 提交并推送到 GitHub
 
-### 第 2 步：填写文档信息
-
-1. **选择分类**：选择文档属于哪个类别
-   - 🎮 开发指南
-   - ⚽ 足球应用
-   - 📚 教程
-
-2. **输入文件名**：给文档起个名字
-   - ✅ 推荐：`advanced-motion` 或 `advanced-motion.md`
-   - ❌ 避免：`高级运动.md` 或 `advanced motion.md`
-
-3. **编写内容**：
-   - 点击 **"📋 加载模板"** 快速开始
-   - 或直接输入 Markdown 内容
-
-### 第 3 步：保存到网站
-
-1. 点击 **"🚀 生成保存命令"** 按钮
-2. 点击 **"📋 复制全部"** 复制生成的命令
-3. 在终端中粘贴并执行命令
-
-**完成！** 等待 2-3 分钟，网站会自动更新。
-
-## 📝 详细示例
-
-### 示例 1：创建一个新教程
-
-**场景**：我想添加一个"基础踢球动作"的教程
-
-1. 访问上传页面
-2. 填写信息：
-   - 分类：📚 教程
-   - 文件名：`basic-kick`
-   - 内容：点击"加载模板"，然后修改内容
-
-3. 点击"生成保存命令"，会得到：
+示例：新增教程 `basic-kick.md`
 
 ```bash
-# 保存文件
-cat > /home/sunteng/mini-pi-docs/docs/tutorials/basic-kick.md << 'EOF'
+cd /home/sunteng/开源工作空间/mini-pi-soccer-docs
+
+cat > docs/tutorials/basic-kick.md <<'EOF'
 # 基础踢球动作
 
 ## 学习目标
-...
+
+- 学会机器人基础踢球动作
+- 理解动作调用与参数控制
 EOF
 
-# 推送到网站
-cd /home/sunteng/mini-pi-docs
 git add docs/tutorials/basic-kick.md
-git commit -m "添加文档: basic-kick.md"
-git push origin master
+git commit -m "docs: add basic kick tutorial"
+git push origin HEAD
 ```
 
-4. 复制这些命令，在终端执行
+发布后访问：
 
-5. 完成！访问 `https://mini-pi-docs.vercel.app/tutorials/basic-kick` 查看
+<https://hightorque-robotics.github.io/mini-pi-soccer-docs/tutorials/basic-kick>
 
-### 示例 2：添加开发指南
+### 方式 2：添加图片或视频资源
 
-**场景**：我想添加"传感器配置"指南
-
-1. 分类：🎮 开发指南
-2. 文件名：`sensor-config`
-3. 内容：编写传感器配置说明
-4. 生成命令并执行
-
-## 🎨 Markdown 语法速查
-
-### 标题
-```markdown
-# 一级标题
-## 二级标题
-### 三级标题
-```
-
-### 文本样式
-```markdown
-**粗体文字**
-*斜体文字*
-~~删除线~~
-`代码`
-```
-
-### 列表
-```markdown
-- 无序列表项 1
-- 无序列表项 2
-
-1. 有序列表项 1
-2. 有序列表项 2
-```
-
-### 链接和图片
-```markdown
-[链接文字](https://example.com)
-![图片描述](/image.png)
-```
-
-### 代码块
-````markdown
-```python
-def hello():
-    print("Hello World")
-```
-````
-
-### 表格
-```markdown
-| 列1 | 列2 | 列3 |
-|-----|-----|-----|
-| 内容1 | 内容2 | 内容3 |
-```
-
-### 提示框
-```markdown
-::: tip 提示
-这是一个提示框
-:::
-
-::: warning 警告
-这是一个警告框
-:::
-
-::: danger 危险
-这是一个危险提示框
-:::
-```
-
-## 🖼️ 如何添加图片
-
-### 方法 1：使用命令行
+将资源复制到 `docs/public/` 下，再在文档中引用。
 
 ```bash
-# 1. 复制图片到 public 目录
-cp /path/to/image.png /home/sunteng/mini-pi-docs/docs/public/
-
-# 2. 在 Markdown 中引用
-![图片描述](/image.png)
-
-# 3. 提交推送
-cd /home/sunteng/mini-pi-docs
+cd /home/sunteng/开源工作空间/mini-pi-soccer-docs
+cp /path/to/image.png docs/public/
 git add docs/public/image.png
-git commit -m "添加图片"
-git push origin master
+git commit -m "docs: add image asset"
+git push origin HEAD
 ```
 
-### 方法 2：使用外部图床
-
-直接使用图片 URL：
-```markdown
-![图片描述](https://example.com/image.png)
-```
-
-## 🎬 如何添加视频
-
-### 方法 1：本地视频（需要压缩）
-
-```bash
-# 1. 压缩视频（如果超过 100MB）
-ffmpeg -i input.mp4 -vcodec libx264 -crf 28 output.mp4
-
-# 2. 复制到 public 目录
-cp output.mp4 /home/sunteng/mini-pi-docs/docs/public/
-
-# 3. 在 Markdown 中添加
-<video controls width="100%">
-  <source src="/output.mp4" type="video/mp4">
-</video>
-
-# 4. 提交推送
-cd /home/sunteng/mini-pi-docs
-git add docs/public/output.mp4
-git commit -m "添加视频"
-git push origin master
-```
-
-### 方法 2：使用视频链接
+Markdown 引用示例：
 
 ```markdown
+![图片描述](/image.png)
+```
+
+视频示例：
+
+```html
 <video controls width="100%">
-  <source src="https://example.com/video.mp4" type="video/mp4">
+  <source src="/demo.mp4" type="video/mp4">
 </video>
 ```
 
-## 🔧 如何在导航栏显示新文档
+### 方式 3：修改导航或侧边栏
 
-如果您想让新文档出现在侧边栏导航中：
+编辑：
 
-1. 编辑配置文件：
 ```bash
-nano /home/sunteng/mini-pi-docs/docs/.vitepress/config.mjs
+nano /home/sunteng/开源工作空间/mini-pi-soccer-docs/docs/.vitepress/config.mjs
 ```
 
-2. 找到对应的 sidebar 部分，添加链接：
+推送后 GitHub Actions 会自动发布。
 
-```javascript
-sidebar: {
-  '/tutorials/': [
-    {
-      text: '📖 教程',
-      items: [
-        { text: '入门教程', link: '/tutorials/' },
-        { text: '基础动作', link: '/tutorials/basic-motion' },
-        { text: '新教程', link: '/tutorials/basic-kick' }  // 添加这行
-      ]
-    }
-  ]
-}
-```
+## 🧪 发布前建议检查
 
-3. 保存并推送：
+每次推送前建议先本地确认：
+
 ```bash
-cd /home/sunteng/mini-pi-docs
-git add docs/.vitepress/config.mjs
-git commit -m "更新导航"
-git push origin master
+cd /home/sunteng/开源工作空间/mini-pi-soccer-docs
+npm install
+npm run docs:build
+npm run docs:preview
 ```
 
-## ⚠️ 常见问题
+检查内容：
 
-### Q: 文件名可以用中文吗？
-**A:** 不建议。使用英文和连字符，如 `advanced-motion.md`
+- 页面是否能正常打开
+- 中英文导航是否正确
+- 图片、视频、下载资源是否能访问
+- 新增页面是否已出现在导航中
+
+## 🔧 常用 Git 命令
+
+```bash
+cd /home/sunteng/开源工作空间/mini-pi-soccer-docs
+
+git status
+git add .
+git commit -m "docs: describe your change"
+git push origin HEAD
+git log --oneline -5
+```
+
+## ❓常见问题
 
 ### Q: 推送后多久能看到更新？
-**A:** 通常 2-3 分钟，GitHub Actions 会自动部署
+A: 通常 1-3 分钟。可在 Actions 页面查看构建和部署状态：
 
-### Q: 如何删除已上传的文档？
-**A:** 使用以下命令：
+<https://github.com/HighTorque-Robotics/mini-pi-soccer-docs/actions>
+
+### Q: 页面没有更新怎么办？
+A: 先检查：
+
+1. 是否已成功推送到默认分支
+2. GitHub Actions 是否执行成功
+3. `docs/.vitepress/config.mjs` 中链接与路径是否正确
+4. GitHub Pages 是否仍设置为 **GitHub Actions**
+
+### Q: 如何删除文档？
+A: 直接删除对应 Markdown 文件并提交：
+
 ```bash
-cd /home/sunteng/mini-pi-docs
+cd /home/sunteng/开源工作空间/mini-pi-soccer-docs
 rm docs/tutorials/unwanted-file.md
 git add .
-git commit -m "删除文档"
-git push origin master
+git commit -m "docs: remove unwanted tutorial"
+git push origin HEAD
 ```
 
 ### Q: 如何修改已有文档？
-**A:** 直接编辑文件：
+A: 直接编辑文件后提交：
+
 ```bash
-nano /home/sunteng/mini-pi-docs/docs/tutorials/basic-motion.md
-# 修改后保存
+cd /home/sunteng/开源工作空间/mini-pi-soccer-docs
+nano docs/tutorials/basic-motion.md
 git add .
-git commit -m "更新文档"
-git push origin master
-```
-
-### Q: 上传的图片/视频太大怎么办？
-**A:**
-- 图片：使用在线压缩工具（如 tinypng.com）
-- 视频：使用 ffmpeg 压缩（见上面的视频添加方法）
-- 或使用外部图床/视频托管服务
-
-### Q: 如何查看部署状态？
-**A:** 访问 https://github.com/zixiangme/mini-pi-soccer-docs/actions
-
-### Q: 推送失败怎么办？
-**A:** 先拉取最新代码：
-```bash
-cd /home/sunteng/mini-pi-docs
-git pull origin master
-# 然后重新推送
-git push origin master
+git commit -m "docs: update basic motion tutorial"
+git push origin HEAD
 ```
 
 ## 📞 需要帮助？
 
 如果遇到问题：
-1. 检查命令是否正确执行
-2. 查看 GitHub Actions 部署日志
-3. 确认文件路径和文件名正确
 
-## 🎉 快速命令参考
-
-```bash
-# 进入项目目录
-cd /home/sunteng/mini-pi-docs
-
-# 查看状态
-git status
-
-# 添加所有修改
-git add .
-
-# 提交
-git commit -m "描述你的修改"
-
-# 推送
-git push origin master
-
-# 查看历史
-git log --oneline
-
-# 拉取最新
-git pull origin master
-```
+1. 查看 GitHub Actions 日志
+2. 检查文件路径和链接是否正确
+3. 在仓库中提交 Issue：<https://github.com/HighTorque-Robotics/mini-pi-soccer-docs/issues>
 
 ---
 
-**祝使用愉快！🚀**
+**建议始终以 GitHub Pages 新站地址作为对外分享链接。**

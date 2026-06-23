@@ -314,4 +314,4 @@ except Exception as e:
 
 - [Motion API 文档](/guide/api#motion)
 - [传感器 API 文档](/guide/api#sensors)
-- [示例代码库](https://github.com/your-repo/mini-pi-examples)
+- [示例代码库](https://github.com/HighTorque-Robotics/RoboCup_Workspace)

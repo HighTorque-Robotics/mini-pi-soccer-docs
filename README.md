@@ -1,34 +1,31 @@
 # ⚽ Mini Pi+ 足球机器人开发文档
 
-基于 VitePress 构建的 Mini Pi+ 机器人足球应用开发文档网站，采用足球绿茵科技风格设计。
+基于 VitePress 构建的 Mini Pi+ 机器人足球应用开发文档网站，当前正式发布目标为 **HighTorque-Robotics 组织下的 GitHub Pages**。
+
+- 正式站点：<https://hightorque-robotics.github.io/mini-pi-soccer-docs/>
+- 仓库地址：<https://github.com/HighTorque-Robotics/mini-pi-soccer-docs>
 
 ## ✨ 特性
 
 - ⚽ **足球绿茵科技风格** - 专业的足球主题设计，绿色渐变配色
-- 📚 **完整的开发文档** - 从入门到精通的完整教程体系
+- 📚 **完整的开发文档** - 从入门到进阶的完整教程体系
 - 🔍 **全文搜索功能** - 快速查找所需内容
 - 💻 **代码语法高亮** - 支持多种编程语言
-- 📤 **在线文档上传** - 方便快捷的文档管理
 - 🌙 **深色模式支持** - 护眼的暗色主题
 - 📱 **响应式设计** - 完美适配各种设备
-- 🚀 **一键部署** - 支持 Vercel 快速部署到公网
+- 🚀 **GitHub Pages 自动发布** - 推送后自动构建并上线
 
 ## 🚀 快速开始
 
 ### 前置要求
 
-- Node.js 18+ 或 20+（推荐使用 nvm 管理版本）
-- npm 或 yarn
+- Node.js 20+（推荐）
+- npm
 
 ### 安装依赖
 
 ```bash
-cd mini-pi-docs
-
-# 如果使用 nvm，先切换到 Node 20
-source ~/.nvm/nvm.sh && nvm use 20
-
-# 安装依赖
+cd mini-pi-soccer-docs
 npm install
 ```
 
@@ -38,13 +35,13 @@ npm install
 # 启动文档网站（端口 5173）
 npm run docs:dev
 
-# 启动上传服务器（端口 3001）- 可选
+# 启动上传服务器（端口 3001，可选）
 npm run server:dev
 ```
 
 访问：
-- 📚 文档网站: http://localhost:5173
-- 📤 上传 API: http://localhost:3001
+- 📚 文档网站：<http://localhost:5173>
+- 📤 上传 API：<http://localhost:3001>
 
 ### 构建生产版本
 
@@ -52,7 +49,7 @@ npm run server:dev
 npm run docs:build
 ```
 
-构建后的文件在 `docs/.vitepress/dist` 目录。
+构建产物位于 `docs/.vitepress/dist`。
 
 ### 预览生产版本
 
@@ -60,115 +57,108 @@ npm run docs:build
 npm run docs:preview
 ```
 
-## 🌐 部署到公网
+## 🌐 发布方式
 
-### 快速部署到 Vercel（推荐）
+本项目当前以 **GitHub Pages** 作为正式公网入口。
 
-1. 推送代码到 GitHub
-2. 访问 https://vercel.com 导入项目
-3. 自动部署，获得公网地址
+### 自动发布
 
-**详细步骤请查看：** [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md)
+仓库默认通过 GitHub Actions 构建并发布到：
+
+<https://hightorque-robotics.github.io/mini-pi-soccer-docs/>
+
+每次向默认分支推送更新后，GitHub Actions 会自动重新构建站点并部署到 GitHub Pages。
+
+详细步骤见 [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md)。
 
 ## 📁 项目结构
 
-```
-mini-pi-docs/
+```text
+mini-pi-soccer-docs/
 ├── docs/                          # 文档内容
 │   ├── .vitepress/               # VitePress 配置
-│   │   ├── config.mjs            # 网站配置（导航、侧边栏）
+│   │   ├── config.mjs            # 网站配置（导航、侧边栏、搜索）
 │   │   └── theme/                # 自定义主题
 │   │       ├── index.js          # 主题入口
 │   │       └── custom.css        # 足球绿茵风格样式
 │   ├── guide/                    # 开发指南文档
 │   ├── soccer/                   # 足球应用文档
 │   ├── tutorials/                # 教程文档
-│   ├── public/                   # 静态资源（图片、Logo等）
-│   │   └── logo.svg              # 网站 Logo
-│   ├── index.md                  # 首页
-│   └── upload.md                 # 上传页面
+│   ├── en/                       # 英文文档
+│   └── public/                   # 静态资源（图片、下载文件等）
 ├── server/                       # 上传服务器（可选）
-│   └── index.js                  # Express 服务器
-├── DOCS_UPDATE_GUIDE.md          # 📝 文档更新指南
-├── DEPLOYMENT_GUIDE.md           # 🚀 部署指南
-├── vercel.json                   # Vercel 部署配置
+├── .github/workflows/            # GitHub Actions 工作流
+├── DOCS_UPDATE_GUIDE.md          # 文档维护指南
+├── DEPLOYMENT_GUIDE.md           # GitHub Pages 发布指南
+├── UPLOAD_GUIDE.md               # 文档上传与维护说明
+├── vercel.json                   # 旧 Vercel 配置（仅保留兼容）
 └── package.json
 ```
 
 ## 📝 更新文档
 
-**详细的文档更新指南请查看：** [DOCS_UPDATE_GUIDE.md](./DOCS_UPDATE_GUIDE.md)
+详细维护说明见 [DOCS_UPDATE_GUIDE.md](./DOCS_UPDATE_GUIDE.md)。
 
-### 快速添加文档
+常见更新流程：
 
-1. **直接编辑 Markdown**（推荐）
-   ```bash
-   # 创建新文档
-   nano docs/guide/new-doc.md
+1. 编辑 `docs/` 下对应的 Markdown 文件
+2. 如有需要，更新 `docs/.vitepress/config.mjs` 中的导航和侧边栏
+3. 本地预览确认无误
+4. 提交并推送到 GitHub
 
-   # 更新配置添加到侧边栏
-   nano docs/.vitepress/config.mjs
-   ```
+```bash
+git add .
+git commit -m "docs: update site content"
+git push origin HEAD
+```
 
-2. **在线上传**
-   - 访问 http://localhost:5173/upload
-   - 选择分类和文件上传
+推送后可在 GitHub Actions 查看部署日志：
 
-3. **从 PDF 转换**
-   - 将 PDF 内容整理成 Markdown 格式
-   - 或直接上传 PDF 供下载
+<https://github.com/HighTorque-Robotics/mini-pi-soccer-docs/actions>
 
-## 🎨 足球绿茵科技风格
-
-网站采用专业的足球主题设计：
-
-- 🟢 **绿茵场配色** - 以足球场草地绿为主色调
-- ⚽ **足球元素** - Logo、图标融入足球和机器人元素
-- 🎯 **科技感设计** - 现代化的渐变和动画效果
-- 🏟️ **草地纹理** - 卡片悬停时显示草地纹理效果
-- ⚡ **流畅动画** - 平滑的过渡和交互动画
-
-### 自定义样式
+## 🎨 主题样式
 
 主题样式文件：`docs/.vitepress/theme/custom.css`
 
 ```css
 :root {
-  --vp-c-brand: #10b981;        /* 主绿色 */
-  --vp-c-brand-light: #34d399;  /* 浅绿色 */
-  --vp-c-brand-dark: #059669;   /* 深绿色 */
+  --vp-c-brand: #10b981;
+  --vp-c-brand-light: #34d399;
+  --vp-c-brand-dark: #059669;
 }
 ```
 
 ## 🔧 技术栈
 
-- **VitePress** - 基于 Vite 的静态站点生成器
-- **Vue 3** - 现代化的前端框架
-- **Express** - 文件上传服务器
-- **Vercel** - 全球 CDN 部署平台
+- **VitePress** - 静态文档站点生成器
+- **Vue 3** - 前端运行时
+- **Express** - 可选的本地上传服务
+- **GitHub Pages** - 正式公网托管
+- **GitHub Actions** - 自动构建与部署
 
-## 📚 文档指南
+## 📚 相关文档
 
-- 📖 [文档更新指南](./DOCS_UPDATE_GUIDE.md) - 如何添加和更新文档
-- 🚀 [部署指南](./DEPLOYMENT_GUIDE.md) - 如何部署到公网
-- 🎨 主题样式 - `docs/.vitepress/theme/custom.css`
-- ⚙️ 网站配置 - `docs/.vitepress/config.mjs`
+- 📖 [文档更新指南](./DOCS_UPDATE_GUIDE.md)
+- 🚀 [部署指南](./DEPLOYMENT_GUIDE.md)
+- 📤 [上传说明](./UPLOAD_GUIDE.md)
+- 🎨 主题样式：`docs/.vitepress/theme/custom.css`
+- ⚙️ 网站配置：`docs/.vitepress/config.mjs`
 
-## 🎯 快速命令
+## 🎯 常用命令
 
 ```bash
 # 开发
-npm run docs:dev          # 启动开发服务器
-npm run server:dev        # 启动上传服务器
+npm run docs:dev
+npm run server:dev
 
 # 构建
-npm run docs:build        # 构建生产版本
-npm run docs:preview      # 预览构建结果
+npm run docs:build
+npm run docs:preview
 
-# Git 部署
-git add .                 # 添加更改
-git commit -m "更新文档"   # 提交
-git push                  # 推送（触发 Vercel 自动部署）
+# Git 发布
+git add .
+git commit -m "docs: update content"
+git push origin HEAD
 ```
 
 ## 🐛 故障排除
@@ -176,38 +166,31 @@ git push                  # 推送（触发 Vercel 自动部署）
 ### Node 版本问题
 
 ```bash
-# 使用 nvm 切换到 Node 20
-source ~/.nvm/nvm.sh
-nvm install 20
-nvm use 20
+node -v
 ```
 
-### 端口被占用
+如版本不是 20+，请切换到较新的 Node.js 版本后再执行 `npm install`。
+
+### 页面资源或样式异常
 
 ```bash
-# 查找并杀死占用端口的进程
-lsof -i :5173
-kill -9 <PID>
-```
-
-### 样式不生效
-
-```bash
-# 清除缓存
 rm -rf docs/.vitepress/cache
 rm -rf docs/.vitepress/dist
+npm run docs:build
 ```
 
-## 📄 许可证
+### 查看部署状态
 
-MIT License
+前往 GitHub Actions：
+
+<https://github.com/HighTorque-Robotics/mini-pi-soccer-docs/actions>
 
 ## 🤝 贡献
 
-欢迎提交 Issue 和 Pull Request！
+欢迎通过 Issue 或 Pull Request 共同维护文档：
+
+<https://github.com/HighTorque-Robotics/mini-pi-soccer-docs>
 
 ---
 
-**需要帮助？** 查看文档指南或提交 Issue。
-
-**祝你使用愉快！⚽🤖**
+**需要帮助？** 请优先查看站内文档或在仓库中提交 Issue。

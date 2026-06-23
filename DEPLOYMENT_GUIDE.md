@@ -1,211 +1,185 @@
-# 🚀 部署到 Vercel - 让全世界访问你的文档
+# 🚀 发布到 HighTorque-Robotics GitHub Pages
 
-## 📋 部署前准备
+本文档说明如何将 `mini-pi-soccer-docs` 发布到 **HighTorque-Robotics** 组织下的 GitHub Pages，并对外提供统一访问地址：
 
-### 1. 注册 GitHub 账号（如果还没有）
+<https://hightorque-robotics.github.io/mini-pi-soccer-docs/>
 
-访问 https://github.com 注册账号
+## 📋 发布前准备
 
-### 2. 注册 Vercel 账号
+### 1. 必备权限
 
-访问 https://vercel.com 使用 GitHub 账号登录
+你需要具备以下 GitHub 权限：
 
-## 🎯 部署步骤
+- 可访问 `HighTorque-Robotics` 组织
+- 可在组织下创建或维护 `mini-pi-soccer-docs` 仓库
+- 可启用 GitHub Actions 与 GitHub Pages
+- 可上传 Release 附件（如 SDK、策略文件）
 
-### 步骤 1：初始化 Git 仓库
+### 2. 本地环境
+
+- Node.js 20+
+- npm
+- git
+
+## 🎯 首次发布步骤
+
+### 步骤 1：准备组织仓库
+
+优先在 GitHub 上使用同名仓库：
+
+- 组织：`HighTorque-Robotics`
+- 仓库：`mini-pi-soccer-docs`
+
+推荐仓库地址：
+
+```text
+git@github.com:HighTorque-Robotics/mini-pi-soccer-docs.git
+```
+
+如果当前仓库还在个人账号下，可选择：
+
+1. **转移仓库** 到组织名下；或
+2. **在组织下新建仓库**，再把当前代码推送过去。
+
+### 步骤 2：确认默认分支与工作流一致
+
+本仓库使用 GitHub Actions 自动构建 Pages。
+
+请确认：
+
+- GitHub 仓库默认分支名称
+- `.github/workflows/deploy.yml` 中 `on.push.branches` 的配置
+
+如果默认分支是 `main`，需要把工作流触发分支改为 `main`；如果仍使用 `master`，则保持一致即可。
+
+### 步骤 3：迁移 Release 资源
+
+在切换正式下载链接前，先把原先依赖的发布附件上传到组织仓库对应的 Release（当前文档默认使用标签 `v1.0.0`）：
+
+- `sim2real_master-feature-master_and_slave_orin_wuandhou.tar.gz`
+- `pi_plus_autostart.zip`
+- `football_strategy_files.tar.gz`
+
+如果这些附件不存在，新站虽然可以打开，但下载按钮会失效。
+
+### 步骤 4：安装依赖并本地构建
 
 ```bash
-cd /home/sunteng/mini-pi-docs
+cd mini-pi-soccer-docs
+npm install
+npm run docs:build
+```
 
-# 初始化 Git
-git init
+构建成功后，可本地预览：
 
-# 添加所有文件
+```bash
+npm run docs:preview
+```
+
+## 🔄 推送与自动部署
+
+### 1. 添加或更新远程仓库
+
+如果当前仓库尚未指向组织仓库：
+
+```bash
+git remote set-url origin git@github.com:HighTorque-Robotics/mini-pi-soccer-docs.git
+```
+
+### 2. 提交变更
+
+```bash
 git add .
-
-# 提交
-git commit -m "🎉 Initial commit: Mini Pi+ Soccer Docs"
+git commit -m "docs: migrate site to HighTorque-Robotics pages"
 ```
 
-### 步骤 2：推送到 GitHub
-
-1. **在 GitHub 创建新仓库**
-   - 访问 https://github.com/new
-   - 仓库名：`mini-pi-soccer-docs`
-   - 设置为 Public（公开）
-   - 不要勾选任何初始化选项
-   - 点击 "Create repository"
-
-2. **推送代码**
+### 3. 推送到默认分支
 
 ```bash
-# 添加远程仓库（替换 YOUR_USERNAME）
-git remote add origin https://github.com/YOUR_USERNAME/mini-pi-soccer-docs.git
-
-# 推送代码
-git branch -M main
-git push -u origin main
+git push origin HEAD
 ```
 
-### 步骤 3：在 Vercel 部署
+### 4. 查看部署状态
 
-1. **导入项目**
-   - 访问 https://vercel.com/new
-   - 点击 "Import Git Repository"
-   - 选择你刚创建的 `mini-pi-soccer-docs` 仓库
-   - 点击 "Import"
+GitHub Actions 页面：
 
-2. **配置项目**
-   - Framework Preset: VitePress（自动检测）
-   - Root Directory: `./`
-   - Build Command: `npm run docs:build`
-   - Output Directory: `docs/.vitepress/dist`
-   - Install Command: `npm install`
+<https://github.com/HighTorque-Robotics/mini-pi-soccer-docs/actions>
 
-3. **部署**
-   - 点击 "Deploy"
-   - 等待 2-3 分钟
+如果构建与部署成功，GitHub Pages 会自动更新。
 
-4. **获取网址**
-   - 部署完成后，你会得到一个网址：
-   ```
-   https://mini-pi-soccer-docs.vercel.app
-   ```
+## 🌐 启用 GitHub Pages
 
-## 🎉 完成！
+在 GitHub 仓库设置中：
 
-现在任何人都可以通过这个网址访问你的文档了！
+1. 打开 **Settings → Pages**
+2. Source 选择 **GitHub Actions**
+3. 保存设置
 
-## 🔄 更新文档
+首次部署完成后，Pages 地址通常为：
 
-每次修改文档后：
+<https://hightorque-robotics.github.io/mini-pi-soccer-docs/>
 
-```bash
-# 1. 添加更改
-git add .
+## ✅ 发布后验收
 
-# 2. 提交
-git commit -m "📝 更新文档内容"
+发布完成后，至少检查以下内容：
 
-# 3. 推送
-git push
-```
-
-Vercel 会自动检测到更新并重新部署（约 2-3 分钟）。
-
-## 🌐 自定义域名（可选）
-
-如果你有自己的域名（如 `docs.minipi.com`）：
-
-1. **在 Vercel 添加域名**
-   - 进入项目 Settings → Domains
-   - 输入你的域名
-   - 点击 "Add"
-
-2. **配置 DNS**
-   - 在你的域名提供商（如阿里云、腾讯云）添加 DNS 记录：
-   ```
-   类型: CNAME
-   名称: docs (或 @)
-   值: cname.vercel-dns.com
-   ```
-
-3. **等待生效**
-   - DNS 生效需要几分钟到几小时
-   - 生效后访问你的自定义域名即可
-
-## 📊 查看访问统计
-
-在 Vercel 项目页面可以看到：
-- 访问量
-- 部署历史
-- 构建日志
-- 性能指标
-
-## 🔒 环境变量（如需要）
-
-如果需要配置环境变量：
-
-1. 进入 Vercel 项目 Settings → Environment Variables
-2. 添加变量（如 API 密钥等）
-3. 重新部署
-
-## ⚡ 性能优化建议
-
-1. **图片优化**
-   - 使用 WebP 格式
-   - 压缩图片大小
-   - 使用适当的尺寸
-
-2. **缓存策略**
-   - Vercel 自动处理静态资源缓存
-   - 无需额外配置
-
-3. **CDN 加速**
-   - Vercel 自带全球 CDN
-   - 自动优化访问速度
+1. 首页是否正常打开
+2. 中文与英文页面是否都能访问
+3. 下载按钮是否正常：
+   - SDK 安装包
+   - 自启动脚本
+   - 足球策略文件
+   - URDF 模型文件
+4. 页脚 GitHub 链接是否指向组织仓库
+5. 页面内容中是否还残留旧的个人仓库、旧 Pages 或 Vercel 链接
 
 ## 🐛 常见问题
 
-### 部署失败
+### 工作流没有触发
 
-**问题**：构建失败，显示 Node 版本错误
+常见原因：
 
-**解决**：在项目根目录创建 `.nvmrc` 文件：
-```bash
-echo "20" > .nvmrc
-git add .nvmrc
-git commit -m "指定 Node 版本"
-git push
+- 推送的不是工作流监听的分支
+- 组织仓库未启用 GitHub Actions
+- Pages Source 不是 GitHub Actions
+
+请先检查：
+
+- `.github/workflows/deploy.yml`
+- GitHub 仓库默认分支
+- `Settings → Pages`
+
+### 页面资源 404 / 样式丢失
+
+通常是 `docs/.vitepress/config.mjs` 中的 `base` 与最终仓库路径不匹配。
+
+当前若仓库名保持为 `mini-pi-soccer-docs`，则应使用：
+
+```js
+base: '/mini-pi-soccer-docs/'
 ```
 
-### 404 错误
+### 下载链接失效
 
-**问题**：访问子页面显示 404
+请确认组织仓库中对应 Release 的标签和附件已经上传完成。
 
-**解决**：确保 `vercel.json` 配置正确（已包含在项目中）
+### 本地构建失败
 
-### 样式丢失
+先清理缓存再重建：
 
-**问题**：部署后样式不正常
-
-**解决**：
 ```bash
-# 清除缓存重新构建
 rm -rf docs/.vitepress/cache docs/.vitepress/dist
-git add .
-git commit -m "清除缓存"
-git push
+npm install
+npm run docs:build
 ```
 
-## 📱 分享你的网站
+## 📌 维护建议
 
-部署完成后，你可以：
-
-1. **分享链接**
-   ```
-   https://your-project.vercel.app
-   ```
-
-2. **生成二维码**
-   - 使用在线工具生成二维码
-   - 方便手机访问
-
-3. **嵌入其他网站**
-   ```html
-   <iframe src="https://your-project.vercel.app" width="100%" height="600px"></iframe>
-   ```
-
-## 🎯 下一步
-
-- ✅ 添加更多文档内容
-- ✅ 上传图片和示例代码
-- ✅ 配置自定义域名
-- ✅ 分享给团队成员
-- ✅ 收集用户反馈
+- 将 GitHub Pages 作为唯一正式公网入口
+- 避免继续在文档中保留旧 Vercel 公网地址
+- 新增下载资源时，优先走 GitHub Release，并在文档中统一使用组织仓库链接
+- 每次改动后都先本地构建，再推送上线
 
 ---
 
-**需要帮助？** 查看 [Vercel 文档](https://vercel.com/docs) 或联系技术支持。
-
-**祝部署顺利！🚀**
+**发布完成后请以 GitHub Pages 新地址为准对外分享。**
